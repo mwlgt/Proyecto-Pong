@@ -28,6 +28,10 @@ ball = vector(0, 0)
 aim = vector(value(), value())
 state = {1: 0, 2: 0}
 
+# Marcadores
+score1 = 0 # Jugador
+score2 = 0 # CPU
+
 
 def move(player, change):
     """Move player position by change."""
@@ -50,10 +54,17 @@ def rectangle(x, y, width, height):
 
 def draw():
     """Draw game and move pong ball."""
+    global score1, score2
+    
     clear()
     rectangle(-200, state[1], 10, 50)
     rectangle(190, state[2], 10, 50)
 
+    # Dibujar marcador
+    up()
+    goto(0, 180)
+    write(f"Jugador: {score1} CPU: {score2}", align= "center", font=("Arial", 16, "normal"))
+    
     ball.move(aim)
     x = ball.x
     y = ball.y
@@ -78,8 +89,9 @@ def draw():
         if low <= y <= high:
             aim.x = -aim.x
         else:
-            return
-
+            score2 += 1 # CPU gana punto
+            reset_ball()
+            
     if x > 185:
         low = state[2]
         high = state[2] + 50
@@ -87,9 +99,17 @@ def draw():
         if low <= y <= high:
             aim.x = -aim.x
         else:
-            return
+            score1 += 1 # Jugador gana punto
+            reset_ball()
 
     ontimer(draw, 50)
+
+
+def reset_ball():
+    """Reinicia la bola al centro con nueva dirección"""
+    global ball, aim
+    ball = vector(0, 0)
+    aim = vector(value(), value())
 
 
 setup(420, 420, 370, 0)
