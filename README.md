@@ -3,7 +3,7 @@
 ### Evidencia final TC1001S
 
 ## Juego inicial:
-1. Dos tablas se pueden subir y bajar con el teclado (w-s y arriba-abajo)
+1. Dos tablas se pueden subir y bajar con el teclado (w-s y i-k)
 2. La pelota tiene rebota con las paredes y con las tablas
 3. La pelota se mueve a velocidad fija
 4. El momento en el que un jugador falle (la pelota golpea la pared del lado izquierdo o derecho), el juego para
