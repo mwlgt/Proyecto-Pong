@@ -6,7 +6,7 @@ Posibles cambios
 2. Incrementar la velocidad de la bola con cada golpe    - Fernando Robles
 3. Cambiar la bola de color con cada golpe                - Horacio Díaz
 4. Cambiar el tamaño de la bola
-5. Agregar más de una bola
+5. Agregar más de una bola                                - Horacio Díaz
 6. Agregar jugador CPU                                   - Mauricio Caballero
 6. Niveles de dificultad
 7. Marcadores                                            - Fernando Robles
