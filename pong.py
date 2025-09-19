@@ -107,7 +107,7 @@ def draw():
 
         up()
         goto(powerup.x, powerup.y)
-        dot(15, "purple")
+        dot(15, "yellow")
 
     # Dibujar y mover todas las pelotas
     for ball in balls:
