@@ -8,9 +8,9 @@ Posibles cambios
 4. Cambiar el tamaño de la bola
 5. Agregar más de una bola                               - Horacio Díaz
 6. Agregar jugador CPU                                   - Mauricio Caballero
-6. Niveles de dificultad                                 - Gabriel Espino
-7. Marcadores                                            - Fernando Robles
-8. Power-ups                                             - Gabriel Espino
+7. Niveles de dificultad                                 - Gabriel Espino
+8. Marcadores                                            - Fernando Robles
+9. Power-ups                                             - Gabriel Espino
 """
 
 from random import choice, random, randint
