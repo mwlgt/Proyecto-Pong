@@ -4,7 +4,7 @@ Posibles cambios
 
 1. Colisiones de las tablas con la pared                 - Mauricio Caballero
 2. Incrementar la velocidad de la bola con cada golpe    - Fernando Robles
-3. Cambiar la bola de color con cada golpe
+3. Cambiar la bola de color con cada golpe                - Horacio Díaz
 4. Cambiar el tamaño de la bola
 5. Agregar más de una bola
 6. Agregar jugador CPU                                   - Mauricio Caballero
@@ -24,20 +24,30 @@ def value():
     return (3 + random() * 2) * choice([1, -1])
 
 
-ball = vector(0, 0)
-aim = vector(value(), value())
+# --- Configuración inicial ---
+balls = []  # lista de pelotas
 state = {1: 0, 2: 0}
-
-# Variables para determinar el power-up
 powerup = vector(0, 100)
 powerup_direction = 1
 powerup_timer = 0
 paddle_sizes = {1: 50, 2: 50}
 last_hit = None
+score1 = 0  # Jugador
+score2 = 0  # CPU
+colors = ["red", "blue", "green", "orange", "purple", "cyan", "magenta", "black"]
 
-# Marcadores
-score1 = 0 # Jugador
-score2 = 0 # CPU
+
+def new_ball():
+    """Crea una nueva pelota en el centro con dirección aleatoria."""
+    return {
+        "pos": vector(0, 0),
+        "vel": vector(value(), value()),
+        "color": "black"
+    }
+
+
+for _ in range(2):  # number of balls
+    balls.append(new_ball())
 
 
 def move(player, change):
@@ -63,15 +73,19 @@ def rectangle(x, y, width, height):
     end_fill()
 
 
-def increase_speed():
-    """Aumenta la velocidad de la vola en cada rebote con la tabla."""
-    global aim
-    aim.x *= 1.1
-    aim.y *= 1.1
-    
+def increase_speed(ball):
+    """Aumenta la velocidad de la bola en cada rebote con la tabla."""
+    ball["vel"].x *= 1.1
+    ball["vel"].y *= 1.1
+
+
+def change_ball_color(ball):
+    """changes ball color."""
+    ball["color"] = choice(colors)
+
 
 def draw():
-    """Draw game and move pong ball."""
+    """Draw game and move pong balls."""
     global score1, score2
     global powerup, powerup_direction, powerup_timer
     global last_hit
@@ -83,71 +97,74 @@ def draw():
     # Dibujar marcador
     up()
     goto(0, 180)
-    write(f"Jugador: {score1} CPU: {score2}", align= "center", font=("Arial", 16, "normal"))
+    write(f"Jugador: {score1}  CPU: {score2}", align="center", font=("Arial", 16, "normal"))
 
     # Dibujar power-up
-    # Dibujar power-up
     if powerup is not None:
-        powerup.y += 2 * powerup_direction  # velocidad de subida/bajada
+        powerup.y += 2 * powerup_direction
         if powerup.y > 180 or powerup.y < -180:
-            powerup_direction *= -1  # invertir dirección
+            powerup_direction *= -1
 
         up()
         goto(powerup.x, powerup.y)
         dot(15, "purple")
 
+    # Dibujar y mover todas las pelotas
+    for ball in balls:
+        ball["pos"].move(ball["vel"])
+        x = ball["pos"].x
+        y = ball["pos"].y
 
-    ball.move(aim)
-    x = ball.x
-    y = ball.y
+        # CPU movimiento
+        cpu_movement = y - state[2]
+        move(2, cpu_movement * 0.15)
 
-    # Calcular cantidad de movimiento que necesita la segunda tabla
-    cpu_movement = y - state[2]
-    # mover la tabla por la cantidad requerida, con reducción para hacer el juego vencible
-    move(2, cpu_movement*0.15)
+        # Dibujar pelota
+        up()
+        goto(x, y)
+        dot(10, ball["color"])
+        update()
 
-    up()
-    goto(x, y)
-    dot(10)
-    update()
+        # Rebote con techo y piso
+        if y < -200 or y > 200:
+            ball["vel"].y = -ball["vel"].y
 
-    if y < -200 or y > 200:
-        aim.y = -aim.y
+        # Rebote con jugador
+        if x < -185:
+            low = state[1]
+            high = state[1] + paddle_sizes[1]
 
-    if x < -185:
-        low = state[1]
-        high = state[1] + paddle_sizes[1]
+            if low <= y <= high:
+                ball["vel"].x = -ball["vel"].x
+                increase_speed(ball)
+                change_ball_color(ball)
+                last_hit = 1
+            else:
+                score2 += 1
+                reset_ball(ball)
 
-        if low <= y <= high:
-            aim.x = -aim.x
-            increase_speed() # aumenta velocidad al rebotar con jugador
-            last_hit = 1
-        else:
-            score2 += 1 # CPU gana punto
-            reset_ball()
+        # Rebote con CPU
+        if x > 185:
+            low = state[2]
+            high = state[2] + paddle_sizes[2]
 
-    if x > 185:
-        low = state[2]
-        high = state[2] + paddle_sizes[2]
+            if low <= y <= high:
+                ball["vel"].x = -ball["vel"].x
+                increase_speed(ball)
+                change_ball_color(ball)
+                last_hit = 2
+            else:
+                score1 += 1
+                reset_ball(ball)
 
-        if low <= y <= high:
-            aim.x = -aim.x
-            increase_speed() # aumenta velocidad al rebotar con CPU
-            last_hit = 2
-        else:
-            score1 += 1 # Jugador gana punto
-            reset_ball()
-
-    # Colisión con la pelota
-    if powerup is not None:
-        if abs(x - powerup.x) < 15 and abs(y - powerup.y) < 15:
-            if last_hit:
-                activate_powerup(last_hit)
-            powerup = None  # quitarlo tras colisión
-
+        # Colisión con power-up
+        if powerup is not None:
+            if abs(x - powerup.x) < 15 and abs(y - powerup.y) < 15:
+                if last_hit:
+                    activate_powerup(last_hit)
+                powerup = None
 
     powerup_timer += 1
-
     if powerup_timer >= 200 and powerup is None:
         powerup_timer = 0
         powerup = vector(randint(-100, 100), randint(-150, 150))
@@ -156,22 +173,21 @@ def draw():
     ontimer(draw, 50)
 
 
-def reset_ball():
-    """Reinicia la bola al centro con nueva dirección"""
-    global ball, aim
-    ball = vector(0, 0)
-    aim = vector(value(), value())
+def reset_ball(ball):
+    """Reinicia una pelota al centro con nueva dirección"""
+    ball["pos"] = vector(0, 0)
+    ball["vel"] = vector(value(), value())
+    ball["color"] = "black"
 
 
 def activate_powerup(player):
     """Duplica tamaño de la paleta temporalmente"""
     global paddle_sizes
-    paddle_sizes[player] = 100  # duplicar tamaño
+    paddle_sizes[player] = 100
 
     def reset_size():
         paddle_sizes[player] = 50
 
-    # restaurar después de 10 segundos
     ontimer(reset_size, 10000)
 
 
@@ -179,8 +195,9 @@ setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
 listen()
-# Controles modificados para hacerlos intuitivos
 onkey(lambda: move(1, 20), 'Up')
 onkey(lambda: move(1, -20), 'Down')
 draw()
 done()
+
+
