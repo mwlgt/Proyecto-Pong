@@ -4,11 +4,11 @@ Posibles cambios
 
 1. Colisiones de las tablas con la pared                 - Mauricio Caballero
 2. Incrementar la velocidad de la bola con cada golpe    - Fernando Robles
-3. Cambiar la bola de color con cada golpe                - Horacio Díaz
+3. Cambiar la bola de color con cada golpe               - Horacio Díaz
 4. Cambiar el tamaño de la bola
-5. Agregar más de una bola                                - Horacio Díaz
+5. Agregar más de una bola                               - Horacio Díaz
 6. Agregar jugador CPU                                   - Mauricio Caballero
-6. Niveles de dificultad
+6. Niveles de dificultad                                 - Gabriel Espino
 7. Marcadores                                            - Fernando Robles
 8. Power-ups                                             - Gabriel Espino
 """
@@ -115,9 +115,18 @@ def draw():
         x = ball["pos"].x
         y = ball["pos"].y
 
+        #Dificultades
+        difficulty = 0.15
+        if score1 >= 3:
+            difficulty = 0.25
+        if score1 >= 6:
+            difficulty = 0.35
+        if score1 >= 10:
+            difficulty = 0.6
+
         # CPU movimiento
         cpu_movement = y - state[2]
-        move(2, cpu_movement * 0.15)
+        move(2, cpu_movement * difficulty)
 
         # Dibujar pelota
         up()
