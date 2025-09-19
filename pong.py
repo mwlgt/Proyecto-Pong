@@ -3,13 +3,13 @@
 Posibles cambios
 
 1. Colisiones de las tablas con la pared
-2. Incrementar la velocidad de la bola con cada golpe
+2. Incrementar la velocidad de la bola con cada golpe - Fernando Robles
 3. Cambiar la bola de color con cada golpe
 4. Cambiar el tamaño de la bola
 5. Agregar más de una bola
 6. Agregar jugador CPU - Mauricio Caballero
 6. Niveles de dificultad
-7. Marcadores
+7. Marcadores - Fernando Robles
 8. Power-ups
 """
 
