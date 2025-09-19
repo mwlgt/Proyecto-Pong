@@ -7,7 +7,7 @@ Posibles cambios
 3. Cambiar la bola de color con cada golpe
 4. Cambiar el tamaño de la bola
 5. Agregar más de una bola
-6. Agregar jugador CPU
+6. Agregar jugador CPU - Mauricio Caballero
 6. Niveles de dificultad
 7. Marcadores
 8. Power-ups
@@ -58,6 +58,11 @@ def draw():
     x = ball.x
     y = ball.y
 
+    # Calcular cantidad de movimiento que necesita la segunda tabla
+    cpu_movement = y - state[2]
+    # mover la tabla por la cantidad requerida, con reducción para hacer el juego vencible
+    move(2, cpu_movement*0.1)
+
     up()
     goto(x, y)
     dot(10)
@@ -91,9 +96,8 @@ setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
 listen()
-onkey(lambda: move(1, 20), 'w')
-onkey(lambda: move(1, -20), 's')
-onkey(lambda: move(2, 20), 'i')
-onkey(lambda: move(2, -20), 'k')
+# Controles modificados para hacerlos intuitivos
+onkey(lambda: move(1, 20), 'Up')
+onkey(lambda: move(1, -20), 'Down')
 draw()
 done()
