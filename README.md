@@ -12,12 +12,12 @@
 ## Juego final:
 1. Una tabla se puede subir y bajar con el teclado (arriba-abajo)
 2. La segunda tabla se mueve en automático, se juega contra un CPU
-3. Se seleccionan diferentes niveles de dificultad (velocidad del CPU)
+3. Se seleccionan diferentes niveles de dificultad (velocidad del CPU) de acuerdo al puntaje actual del jugador
 4. La pelota acelera con cada golpe
 5. Cuando suceden suficientes golpes, se crea una segunda bola para añadir dificultad
 6. Las pelotas cambian de color con cada golpe, indicando su velocidad
 7. Cada vez que el jugador o el cpu falla, se añade un punto al tablero y se continua jugando
-8. Power-ups?
+8. Hay un powerup que duplica el tamaño de la tabla/raqueta de cualquiera que haya conseguido el powerup
 
 ## Requisitos para correr
 1. Python, probado entre versiones 3.6-3.10 (checar documentación freegames)
