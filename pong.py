@@ -56,6 +56,13 @@ def rectangle(x, y, width, height):
     end_fill()
 
 
+def increase_speed():
+    """Aumenta la velocidad de la vola en cada rebote con la tabla."""
+    global aim
+    aim.x *= 1.1
+    aim.y *= 1.1
+    
+
 def draw():
     """Draw game and move pong ball."""
     global score1, score2
@@ -92,6 +99,7 @@ def draw():
 
         if low <= y <= high:
             aim.x = -aim.x
+            increase_speed() # aumenta velocidad al rebotar con jugador
         else:
             score2 += 1 # CPU gana punto
             reset_ball()
@@ -102,6 +110,7 @@ def draw():
 
         if low <= y <= high:
             aim.x = -aim.x
+            increase_speed() # aumenta velocidad al rebotar con CPU
         else:
             score1 += 1 # Jugador gana punto
             reset_ball()
