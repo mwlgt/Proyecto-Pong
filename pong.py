@@ -120,11 +120,8 @@ def draw():
 
         if low <= y <= high:
             aim.x = -aim.x
-<<<<<<< Updated upstream
             increase_speed() # aumenta velocidad al rebotar con jugador
-=======
             last_hit = 1
->>>>>>> Stashed changes
         else:
             score2 += 1 # CPU gana punto
             reset_ball()
@@ -135,11 +132,8 @@ def draw():
 
         if low <= y <= high:
             aim.x = -aim.x
-<<<<<<< Updated upstream
             increase_speed() # aumenta velocidad al rebotar con CPU
-=======
             last_hit = 2
->>>>>>> Stashed changes
         else:
             score1 += 1 # Jugador gana punto
             reset_ball()
