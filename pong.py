@@ -13,7 +13,6 @@ Posibles cambios
 8. Power-ups
 """
 
-from random import choice, random
 from random import choice, random, randint
 from turtle import *
 
@@ -78,8 +77,6 @@ def draw():
     global last_hit
 
     clear()
-    rectangle(-200, state[1], 10, 50)
-    rectangle(190, state[2], 10, 50)
     rectangle(-200, state[1], 10, paddle_sizes[1])
     rectangle(190, state[2], 10, paddle_sizes[2])
 
@@ -119,7 +116,6 @@ def draw():
 
     if x < -185:
         low = state[1]
-        high = state[1] + 50
         high = state[1] + paddle_sizes[1]
 
         if low <= y <= high:
@@ -135,7 +131,6 @@ def draw():
 
     if x > 185:
         low = state[2]
-        high = state[2] + 50
         high = state[2] + paddle_sizes[2]
 
         if low <= y <= high:
