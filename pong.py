@@ -2,7 +2,7 @@
 
 Posibles cambios
 
-1. Colisiones de las tablas con la pared
+1. Colisiones de las tablas con la pared - Mauricio Caballero
 2. Incrementar la velocidad de la bola con cada golpe - Fernando Robles
 3. Cambiar la bola de color con cada golpe
 4. Cambiar el tamaño de la bola
@@ -36,6 +36,10 @@ score2 = 0 # CPU
 def move(player, change):
     """Move player position by change."""
     state[player] += change
+    if state[player] > 160:
+        state[player] = 160
+    elif state[player] < -210:
+        state[player] = -210
 
 
 def rectangle(x, y, width, height):
@@ -55,7 +59,7 @@ def rectangle(x, y, width, height):
 def draw():
     """Draw game and move pong ball."""
     global score1, score2
-    
+
     clear()
     rectangle(-200, state[1], 10, 50)
     rectangle(190, state[2], 10, 50)
@@ -64,7 +68,7 @@ def draw():
     up()
     goto(0, 180)
     write(f"Jugador: {score1} CPU: {score2}", align= "center", font=("Arial", 16, "normal"))
-    
+
     ball.move(aim)
     x = ball.x
     y = ball.y
@@ -72,7 +76,7 @@ def draw():
     # Calcular cantidad de movimiento que necesita la segunda tabla
     cpu_movement = y - state[2]
     # mover la tabla por la cantidad requerida, con reducción para hacer el juego vencible
-    move(2, cpu_movement*0.1)
+    move(2, cpu_movement*0.15)
 
     up()
     goto(x, y)
@@ -91,7 +95,7 @@ def draw():
         else:
             score2 += 1 # CPU gana punto
             reset_ball()
-            
+
     if x > 185:
         low = state[2]
         high = state[2] + 50
