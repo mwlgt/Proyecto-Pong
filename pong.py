@@ -5,12 +5,11 @@ Posibles cambios
 1. Colisiones de las tablas con la pared                 - Mauricio Caballero
 2. Incrementar la velocidad de la bola con cada golpe    - Fernando Robles
 3. Cambiar la bola de color con cada golpe               - Horacio Díaz
-4. Cambiar el tamaño de la bola
-5. Agregar más de una bola                               - Horacio Díaz
-6. Agregar jugador CPU                                   - Mauricio Caballero
-7. Niveles de dificultad                                 - Gabriel Espino
-8. Marcadores                                            - Fernando Robles
-9. Power-ups                                             - Gabriel Espino
+4. Agregar más de una bola                               - Horacio Díaz
+5. Agregar jugador CPU                                   - Mauricio Caballero
+6. Niveles de dificultad                                 - Gabriel Espino
+7. Marcadores                                            - Fernando Robles
+8. Power-ups                                             - Gabriel Espino
 """
 
 from random import choice, random, randint
