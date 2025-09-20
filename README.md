@@ -26,3 +26,7 @@
 `python3 -m pip install freegames`
 ### Al cumplir con los requisitos, correr:
 `python3 pong.py`
+
+## Documentación
+### Horacio Díaz
+Yo lo que hice fue el punto 3 y 4, los cuales consistieron en hacer que la pelota cambie de color cada vez que le peguen y también en poder añadir más de una bola en la partida, para que el juego se vuelva más desafiante. Para hacer que la pelota cambie de color, simplemente creé una funcion en la cual permita escojer un color de la lista de colores al azar, y seleccionarlo para la bola cada vez que le peguen y que cambie de trayectoria, y para añadir más bolas al juego, lo hise con un for donde le puedas cambiar el numero de bolas que quieres en el juego, y dentro del for con un append hice para que añada a la lista de bolas el número de bolas del range.
