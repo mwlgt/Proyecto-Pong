@@ -45,7 +45,7 @@ def new_ball():
     }
 
 
-for _ in range(2):  # number of balls
+for _ in range(2):  # numero de bolas
     balls.append(new_ball())
 
 
@@ -79,7 +79,7 @@ def increase_speed(ball):
 
 
 def change_ball_color(ball):
-    """changes ball color."""
+    """cambia color de la bola con cada golpe."""
     ball["color"] = choice(colors)
 
 
