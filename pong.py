@@ -30,7 +30,6 @@ powerup = vector(0, 100)
 powerup_direction = 1
 powerup_timer = 0
 paddle_sizes = {1: 50, 2: 50}
-last_hit = None
 score1 = 0  # Jugador
 score2 = 0  # CPU
 colors = ["red", "blue", "green", "orange", "purple", "cyan", "magenta", "black"]
@@ -41,7 +40,8 @@ def new_ball():
     return {
         "pos": vector(0, 0),
         "vel": vector(value(), value()),
-        "color": "black"
+        "color": "black",
+        "last_hit": None,
     }
 
 
@@ -87,7 +87,6 @@ def draw():
     """Draw game and move pong balls."""
     global score1, score2
     global powerup, powerup_direction, powerup_timer
-    global last_hit
 
     clear()
     rectangle(-200, state[1], 10, paddle_sizes[1])
@@ -123,8 +122,10 @@ def draw():
         if score1 >= 10:
             difficulty = 0.6
 
+
         # CPU movimiento
-        cpu_movement = y - state[2]
+        target_ball = max(balls, key=lambda b: b["pos"].x)
+        cpu_movement = target_ball["pos"].y - state[2]
         move(2, cpu_movement * difficulty)
 
         # Dibujar pelota
@@ -146,7 +147,7 @@ def draw():
                 ball["vel"].x = -ball["vel"].x
                 increase_speed(ball)
                 change_ball_color(ball)
-                last_hit = 1
+                ball["last_hit"] = 1
             else:
                 score2 += 1
                 reset_ball(ball)
@@ -160,7 +161,7 @@ def draw():
                 ball["vel"].x = -ball["vel"].x
                 increase_speed(ball)
                 change_ball_color(ball)
-                last_hit = 2
+                ball["last_hit"] = 2
             else:
                 score1 += 1
                 reset_ball(ball)
@@ -168,8 +169,8 @@ def draw():
         # Colisión con power-up
         if powerup is not None:
             if abs(x - powerup.x) < 15 and abs(y - powerup.y) < 15:
-                if last_hit:
-                    activate_powerup(last_hit)
+                if ball["last_hit"] is not None:
+                    activate_powerup(ball["last_hit"])
                 powerup = None
 
     powerup_timer += 1
